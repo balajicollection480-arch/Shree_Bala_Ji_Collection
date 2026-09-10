@@ -75,8 +75,7 @@ function normalizeProduct(b) {
     id: id(), name: String(b.name || '').trim(), price: Number(b.price || 0),
     stock: Math.max(0, Number(b.stock || 0)), category: String(b.category || 'Sarees'),
     fabric: String(b.fabric || ''), color: String(b.color || ''), size: String(b.size || ''),
-    delivery: String(b.delivery || ''), rating: Math.max(0, Math.min(5, Number(b.rating ?? 5))),
-    sold: Math.max(0, Number(b.sold ?? 0)), description: String(b.description || ''),
+    delivery: String(b.delivery || ''), description: String(b.description || ''),
     image: String(b.image || ''), createdAt: new Date().toISOString()
   };
 }
@@ -97,15 +96,24 @@ async function api(request, env, path) {
   }
   if (path.startsWith('/api/store/products/') && request.method === 'PUT') {
     if (!authorized(request, env)) return unauthorized();
-    const productId = path.split('/').pop();
-    const existing = await get(env, `product:${productId}`);
+    const productId = decodeURIComponent(path.split('/').pop());
+    // Normally the product is fetched directly from KV. If an older KV record
+    // was created with a slightly different key, fall back to the product list
+    // so Edit still works for products already visible in the admin panel.
+    let existing = await get(env, `product:${productId}`);
+    let existingKey = `product:${productId}`;
+    if (!existing) {
+      const all = await list(env, 'product:');
+      existing = all.find(x => String(x?.id || '') === String(productId));
+      if (existing) existingKey = `product:${existing.id}`;
+    }
     if (!existing) return json(404, { error: 'Product not found' });
     const b = await body(request);
     if (!b.name || !Number.isFinite(Number(b.price))) return json(400, { error: 'name and price required' });
     const product = normalizeProduct(b);
     product.id = productId;
     product.createdAt = existing.createdAt || product.createdAt;
-    await put(env, `product:${productId}`, product);
+    await put(env, existingKey, product);
     return json(200, product);
   }
   if (path.startsWith('/api/store/products/') && request.method === 'DELETE') {
