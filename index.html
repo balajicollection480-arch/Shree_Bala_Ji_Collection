@@ -8,585 +8,116 @@
 
 <style>
 :root{
-  --maroon:#650707;
-  --dark:#270202;
-  --gold:#d6a12e;
-  --cream:#fff8ef;
-  --white:#ffffff;
-  --text:#301010;
-  --muted:#765;
-  --border:#ead6b8;
+ --maroon:#5b0a12;--deep:#260407;--burgundy:#7c1623;--gold:#c99a3b;
+ --gold2:#e6c276;--cream:#fbf4e8;--ivory:#fffdf9;--ink:#2b1010;--muted:#765e59;
+ --line:#ead9bf;--green:#159447;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:Arial,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  background:var(--cream);
-  color:var(--text);
-}
-button,input{font:inherit}
-button{cursor:pointer}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:Georgia,"Times New Roman",serif;background:var(--cream);color:var(--ink)}
+button,input,textarea,select{font:inherit}button{cursor:pointer}
+a{text-decoration:none}
+.topbar{background:var(--deep);color:#fff;min-height:38px;display:flex;justify-content:center;align-items:center;gap:30px;padding:8px 15px;font:13px Arial,sans-serif;letter-spacing:.2px}
+.topbar .goldtxt{color:var(--gold2)}.whatsappText{color:#fff;font-weight:800}
+header{background:linear-gradient(180deg,#fffdf9,#f8eee1);position:sticky;top:0;z-index:1000;box-shadow:0 4px 22px #35100d18;border-bottom:1px solid var(--line)}
+.headerMain{max-width:1280px;margin:auto;padding:14px 22px;display:grid;grid-template-columns:300px 1fr auto;gap:28px;align-items:center}
+.logoBox{display:flex;align-items:center;gap:13px}.logoBox img{width:72px;height:72px;object-fit:cover;border-radius:10px;border:1px solid var(--gold);box-shadow:0 3px 10px #0002}
+.brand{font-size:25px;font-weight:900;line-height:1;color:var(--maroon);letter-spacing:.2px}.brand small{display:block;margin-top:8px;font:700 10px Arial;letter-spacing:2px;color:#9a6b30}
+.searchBox{height:46px;display:flex;background:#fff;border:1px solid #d8bd92;border-radius:3px;overflow:hidden;box-shadow:0 4px 14px #0000000b}.searchBox input{flex:1;border:0;outline:0;padding:0 17px;color:var(--ink)}.searchBox button{width:55px;border:0;background:var(--maroon);color:#fff;font-weight:900}
+.headerActions{display:flex;gap:9px;align-items:center}.headerBtn{border:1px solid var(--maroon);background:#fff;color:var(--maroon);padding:10px 13px;border-radius:3px;font-weight:800;white-space:nowrap}.cartBtn{background:var(--gold);border-color:var(--gold);color:#2d0a08}.waBtn{background:#168b46;color:#fff;border-color:#168b46!important}
+.nav{background:var(--maroon);border-top:1px solid #8c3b3f}.navInner{max-width:1280px;margin:auto;display:flex;justify-content:center;gap:0}.nav a{color:#fff;padding:14px 25px;font-size:15px;position:relative}.nav a:after{content:"";position:absolute;left:25px;right:25px;bottom:7px;height:1px;background:var(--gold2);transform:scaleX(0);transition:.2s}.nav a:hover:after{transform:scaleX(1)}
+.searchArea{max-width:1280px;margin:18px auto 0;padding:0 22px}.searchArea .searchBox{max-width:780px;margin:auto;border-radius:25px}.searchArea .searchBox button{background:var(--gold);color:#2d0a08}
+.hero{max-width:1280px;margin:18px auto 35px;padding:0 22px}.slider{position:relative;min-height:500px;border:1px solid var(--gold);overflow:hidden;background:#3a070b;box-shadow:0 14px 45px #3b0b0d24}
+.slide{display:none;min-height:500px;position:relative;align-items:center;padding:65px 8%;overflow:hidden;background:
+ radial-gradient(circle at 76% 38%,#f1d29a55 0 12%,transparent 34%),
+ linear-gradient(110deg,#280407 0%,#6b101a 45%,#b4763b 100%)}
+.slide.active{display:flex}.slide:before{content:"";position:absolute;inset:22px;border:1px solid #dcb66a88;pointer-events:none}
+.slide:after{content:"";position:absolute;width:620px;height:620px;right:-180px;top:-150px;border-radius:50%;border:2px solid #e6c27655;box-shadow:0 0 0 30px #e6c2760d,0 0 0 80px #e6c27608}
+.slideText{max-width:650px;position:relative;z-index:2;color:#fff}.eyebrow{font:700 12px Arial;letter-spacing:4px;color:var(--gold2)}.slide h1{font-size:62px;line-height:1;margin:15px 0 12px;color:#fff5dc}.slide h1 em{font-weight:400;color:var(--gold2)}.slide p{font-size:19px;line-height:1.65;color:#f7e9d6;max-width:580px}.heroBtn{display:inline-block;margin-top:14px;background:var(--gold);color:#2b0908;padding:14px 29px;border:1px solid #f2d88e;font:700 13px Arial;letter-spacing:2px}.heroDecor{position:absolute;right:8%;bottom:0;width:390px;height:410px;z-index:1}.silhouette{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:230px;height:330px;background:linear-gradient(160deg,#6d0d18,#b22d3c 45%,#3b0509);border-radius:48% 48% 15% 15%/30% 30% 8% 8%;clip-path:polygon(40% 0,60% 0,68% 16%,82% 27%,100% 100%,0 100%,18% 27%,32% 16%);box-shadow:0 0 0 1px #e6c27666}.head{position:absolute;left:50%;top:6px;transform:translateX(-50%);width:78px;height:78px;border-radius:50%;background:#b8734d;box-shadow:0 0 0 8px #5b0a12}.dupatta{position:absolute;left:20px;top:20px;width:210px;height:350px;border-radius:60% 10% 0 0;background:linear-gradient(120deg,#9c1d2b,#4a070c);transform:rotate(-10deg);border-right:2px solid var(--gold2);opacity:.9}.ornament{position:absolute;left:50%;top:96px;transform:translateX(-50%);font-size:32px;color:var(--gold2)}
+.dots{position:absolute;bottom:17px;left:0;right:0;text-align:center;z-index:4}.dot{display:inline-block;width:9px;height:9px;background:#fff;opacity:.45;border-radius:50%;margin:4px}.dot.active{opacity:1;background:var(--gold2)}
+.container{max-width:1280px;margin:auto;padding:0 22px}.section{margin:55px 0}.sectionTitle{display:flex;align-items:end;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:13px;margin-bottom:22px}.sectionTitle h2{margin:0;color:var(--maroon);font-size:31px}.sectionTitle p{margin:4px 0 0;color:var(--muted);font:13px Arial}.sectionTitle:after{content:"✦";color:var(--gold);font-size:20px;margin-left:10px}
+.categories{display:grid;grid-template-columns:1fr 1fr;gap:22px}.category{min-height:270px;padding:34px;display:flex;flex-direction:column;justify-content:end;position:relative;overflow:hidden;color:#fff;border:1px solid var(--gold);background:linear-gradient(135deg,#3a060b,#7e1824 52%,#b9853e)}.category:before{content:"";position:absolute;inset:12px;border:1px solid #e6c27666}.category:after{content:"✦";position:absolute;right:32px;top:26px;color:var(--gold2);font-size:42px}.category h3{position:relative;margin:0 0 10px;font-size:28px;letter-spacing:.5px}.category span{position:relative;font:700 11px Arial;letter-spacing:2px}.category:nth-child(2){background:linear-gradient(135deg,#291015,#6d3035 48%,#b68a4e)}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}.product{background:#fff;border:1px solid var(--line);overflow:hidden;box-shadow:0 7px 22px #3c15100c;transition:.25s}.product:hover{transform:translateY(-5px);box-shadow:0 14px 32px #3c15101b}.productImg{width:100%;height:290px;object-fit:cover;background:#f3e5d5}.productBody{padding:16px}.productName{font-size:18px;font-weight:900;margin-bottom:6px}.price{color:var(--maroon);font-size:21px;font-weight:900}.rating{color:#c38c2f;margin:6px 0}.stock{color:#168345;font:700 12px Arial}.out{color:#a00}.productActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.btn{border:0;padding:11px 8px;font-weight:900}.buy{background:var(--maroon);color:#fff}.add{background:var(--gold);color:#2d0606}.empty{background:#fff;padding:35px;text-align:center;border:1px dashed var(--line);color:var(--muted)}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--gold);background:#fffaf1}.feature{padding:26px 12px;text-align:center;border-right:1px solid var(--line);font-weight:900;color:var(--maroon)}.feature:last-child{border-right:0}.featureIcon{font-size:30px;margin-bottom:8px;color:var(--gold)}
+footer{margin-top:55px;background:var(--deep);color:#fff;border-top:4px solid var(--gold)}.footerGrid{max-width:1280px;margin:auto;padding:45px 22px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:50px}footer h3{color:var(--gold2);margin-top:0}footer p,footer a{color:#eadbd4;font:14px Arial;line-height:1.7}footer a{display:block;margin:9px 0}.follow{display:inline-flex!important;align-items:center;gap:10px}.waIcon{width:31px;height:31px;border-radius:50%;background:#20a858;display:inline-flex;align-items:center;justify-content:center}.copyright{border-top:1px solid #ffffff22;text-align:center;padding:14px;color:#d7c7c1;font:12px Arial}
+.modal{position:fixed;inset:0;background:#160000b8;display:none;align-items:center;justify-content:center;z-index:3000;padding:15px}.modal.open{display:flex}.modalBox{background:var(--ivory);width:min(650px,100%);max-height:90vh;overflow:auto;border:1px solid var(--gold);padding:22px;position:relative}.close{position:absolute;right:12px;top:10px;border:0;background:#eee;width:34px;height:34px;border-radius:50%;font-size:20px}.modalImg{width:100%;max-height:350px;object-fit:contain;background:#f4eadb}.formGroup{margin:10px 0}.formGroup label{display:block;font-weight:800;margin-bottom:5px}.formGroup input,.formGroup textarea,.formGroup select{width:100%;padding:11px;border:1px solid #d8c6a9;border-radius:3px}.cartItem{display:flex;gap:12px;border-bottom:1px solid #eee;padding:12px 0;align-items:center}.cartItem img{width:70px;height:70px;object-fit:cover}.qty{display:flex;align-items:center;gap:7px}.qty button{border:1px solid #ccc;background:white;width:28px;height:28px;border-radius:50%}.total{font-size:22px;font-weight:900;color:var(--maroon);margin:15px 0}
+@media(max-width:1000px){.headerMain{grid-template-columns:1fr auto}.headerMain>.searchBox{grid-column:1/-1;grid-row:2}.products{grid-template-columns:repeat(3,1fr)}.heroDecor{opacity:.65;right:-50px}.slide h1{font-size:48px}}
+@media(max-width:700px){.topbar{gap:8px;font-size:10px}.topbar span{margin:0 3px}.headerMain{display:flex;flex-wrap:wrap;padding:10px 14px}.logoBox{width:100%}.headerActions{width:100%;justify-content:center;flex-wrap:wrap}.brand{font-size:20px}.navInner{justify-content:flex-start;overflow:auto}.nav a{padding:12px 16px}.hero{padding:0 10px}.slider,.slide{min-height:420px}.slide{padding:45px 28px}.slide h1{font-size:39px}.slide p{font-size:15px}.heroDecor{display:none}.categories,.products{grid-template-columns:1fr 1fr}.features{grid-template-columns:1fr 1fr}.feature:nth-child(2){border-right:0}.feature:nth-child(-n+2){border-bottom:1px solid var(--line)}.footerGrid{grid-template-columns:1fr;padding:35px 18px}}
+@media(max-width:480px){.products{grid-template-columns:1fr}.categories{grid-template-columns:1fr}.productImg{height:300px}.section{margin:40px 0}.sectionTitle h2{font-size:25px}}
 
-.topbar{
-  background:var(--dark);
-  color:#fff;
-  padding:9px 15px;
-  text-align:center;
-  font-size:14px;
-}
-.topbar span{
-  margin:0 14px;
-}
-.whatsappText{
-  color:#fff;
-  text-decoration:none;
-  font-weight:800;
-}
-
-header{
-  background:linear-gradient(135deg,#270202,#650707);
-  color:white;
-  position:sticky;
-  top:0;
-  z-index:1000;
-  box-shadow:0 3px 15px #0004;
-}
-.headerMain{
-  max-width:1200px;
-  margin:auto;
-  padding:13px 18px;
-  display:flex;
-  align-items:center;
-  gap:18px;
-}
-.logoBox{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  flex:1;
-}
-.logoBox img{
-  width:58px;
-  height:58px;
-  object-fit:contain;
-  border-radius:50%;
-  background:white;
-}
-.brand{
-  font-size:24px;
-  font-weight:900;
-  color:#ffd86e;
-}
-.brand small{
-  display:block;
-  color:white;
-  font-size:11px;
-  letter-spacing:2px;
-}
-.headerActions{
-  display:flex;
-  gap:8px;
-  align-items:center;
-}
-.headerBtn{
-  border:1px solid #ffffff55;
-  background:#ffffff12;
-  color:white;
-  padding:9px 13px;
-  border-radius:22px;
-  font-weight:800;
-}
-.cartBtn{
-  background:var(--gold);
-  color:#2d0606;
-  border:0;
-}
-.nav{
-  border-top:1px solid #ffffff22;
-}
-.navInner{
-  max-width:1200px;
-  margin:auto;
-  display:flex;
-  gap:5px;
-  padding:7px 18px;
-  overflow:auto;
-}
-.nav a{
-  color:white;
-  text-decoration:none;
-  padding:8px 13px;
-  border-radius:18px;
-  white-space:nowrap;
-}
-.nav a:hover{
-  background:#ffffff18;
-}
-
-.searchArea{
-  max-width:1200px;
-  margin:18px auto;
-  padding:0 18px;
-}
-.searchBox{
-  display:flex;
-  background:white;
-  border:1px solid var(--border);
-  border-radius:30px;
-  overflow:hidden;
-  box-shadow:0 4px 18px #0000000d;
-}
-.searchBox input{
-  flex:1;
-  border:0;
-  outline:0;
-  padding:14px 18px;
-}
-.searchBox button{
-  border:0;
-  background:var(--gold);
-  padding:0 22px;
-  font-weight:900;
-}
-
-.hero{
-  max-width:1200px;
-  margin:10px auto 25px;
-  padding:0 18px;
-}
-.slider{
-  position:relative;
-  min-height:340px;
-  border-radius:22px;
-  overflow:hidden;
-  background:linear-gradient(135deg,#270202,#8c1515);
-  color:white;
-  box-shadow:0 8px 30px #0002;
-}
-.slide{
-  display:none;
-  min-height:340px;
-  padding:50px 8%;
-  align-items:center;
-  background:linear-gradient(100deg,#270202cc,#650707aa);
-}
-.slide.active{display:flex}
-.slideText{
-  max-width:600px;
-}
-.slide h1{
-  font-size:46px;
-  margin:0 0 12px;
-  color:#ffd86e;
-}
-.slide p{
-  font-size:18px;
-  line-height:1.6;
-}
-.heroBtn{
-  display:inline-block;
-  background:var(--gold);
-  color:#2d0606;
-  text-decoration:none;
-  padding:12px 22px;
-  border-radius:25px;
-  font-weight:900;
-}
-.dots{
-  position:absolute;
-  bottom:15px;
-  left:0;
-  right:0;
-  text-align:center;
-}
-.dot{
-  display:inline-block;
-  width:9px;
-  height:9px;
-  background:white;
-  opacity:.5;
-  border-radius:50%;
-  margin:4px;
-}
-.dot.active{opacity:1}
-
-.container{
-  max-width:1200px;
-  margin:auto;
-  padding:0 18px;
-}
-.section{
-  margin:35px 0;
-}
-.sectionTitle{
-  display:flex;
-  align-items:end;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:16px;
-}
-.sectionTitle h2{
-  margin:0;
-  color:var(--maroon);
-  font-size:28px;
-}
-.sectionTitle p{
-  margin:0;
-  color:var(--muted);
-}
-
-.categories{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:16px;
-}
-.category{
-  padding:28px;
-  border-radius:18px;
-  color:white;
-  text-decoration:none;
-  background:linear-gradient(135deg,#650707,#a52b2b);
-  border:2px solid #d6a12e66;
-  text-align:center;
-  font-weight:900;
-  font-size:20px;
-  box-shadow:0 5px 20px #0002;
-}
-.category:nth-child(2){
-  background:linear-gradient(135deg,#3b0808,#650707);
-}
-
-.products{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-}
-.product{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:0 4px 15px #0000000b;
-  transition:.2s;
-}
-.product:hover{
-  transform:translateY(-3px);
-  box-shadow:0 8px 25px #0002;
-}
-.productImg{
-  width:100%;
-  height:260px;
-  object-fit:cover;
-  background:#f4eadb;
-}
-.productBody{
-  padding:13px;
-}
-.productName{
-  font-size:17px;
-  font-weight:900;
-  margin-bottom:5px;
-}
-.price{
-  color:var(--maroon);
-  font-size:21px;
-  font-weight:900;
-}
-.rating{
-  color:#d6a12e;
-  margin:5px 0;
-}
-.stock{
-  color:#168345;
-  font-size:13px;
-  font-weight:700;
-}
-.out{
-  color:#a00;
-}
-.productActions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-  margin-top:10px;
-}
-.btn{
-  border:0;
-  padding:10px 8px;
-  border-radius:20px;
-  font-weight:900;
-}
-.buy{
-  background:var(--maroon);
-  color:white;
-}
-.add{
-  background:var(--gold);
-  color:#2d0606;
-}
-
-.features{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-}
-.feature{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:20px 10px;
-  text-align:center;
-  font-weight:900;
-}
-.featureIcon{
-  font-size:28px;
-  margin-bottom:7px;
-}
-
-footer{
-  margin-top:45px;
-  background:var(--dark);
-  color:white;
-}
-.footerGrid{
-  max-width:1200px;
-  margin:auto;
-  padding:40px 18px;
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr;
-  gap:35px;
-}
-footer h3{
-  color:#ffd86e;
-  margin-top:0;
-}
-footer a{
-  color:white;
-  text-decoration:none;
-  display:block;
-  margin:9px 0;
-}
-.follow{
-  display:inline-flex;
-  align-items:center;
-  gap:9px;
-  color:white;
-  font-weight:900;
-}
-.waIcon{
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  background:#20a858;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-}
-.copyright{
-  border-top:1px solid #ffffff22;
-  text-align:center;
-  padding:14px;
-  color:#ddd;
-  font-size:13px;
-}
-
-.modal{
-  position:fixed;
-  inset:0;
-  background:#0008;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:3000;
-  padding:15px;
-}
-.modal.open{display:flex}
-.modalBox{
-  background:white;
-  width:min(650px,100%);
-  max-height:90vh;
-  overflow:auto;
-  border-radius:18px;
-  padding:20px;
-  position:relative;
-}
-.close{
-  position:absolute;
-  right:12px;
-  top:8px;
-  border:0;
-  background:#eee;
-  width:35px;
-  height:35px;
-  border-radius:50%;
-  font-size:20px;
-}
-.modalImg{
-  width:100%;
-  max-height:350px;
-  object-fit:contain;
-  background:#f4eadb;
-  border-radius:12px;
-}
-.formGroup{
-  margin:9px 0;
-}
-.formGroup label{
-  display:block;
-  font-weight:800;
-  margin-bottom:5px;
-}
-.formGroup input,
-.formGroup textarea,
-.formGroup select{
-  width:100%;
-  padding:11px;
-  border:1px solid #d8c6a9;
-  border-radius:9px;
-}
-.cartItem{
-  display:flex;
-  gap:12px;
-  border-bottom:1px solid #eee;
-  padding:12px 0;
-  align-items:center;
-}
-.cartItem img{
-  width:70px;
-  height:70px;
-  object-fit:cover;
-  border-radius:8px;
-}
-.qty{
-  display:flex;
-  align-items:center;
-  gap:7px;
-}
-.qty button{
-  border:1px solid #ccc;
-  background:white;
-  width:28px;
-  height:28px;
-  border-radius:50%;
-}
-.total{
-  font-size:22px;
-  font-weight:900;
-  color:var(--maroon);
-  margin:15px 0;
-}
-.empty{
-  background:white;
-  padding:30px;
-  text-align:center;
-  border-radius:15px;
-  border:1px solid var(--border);
-}
-
-@media(max-width:900px){
-  .products{grid-template-columns:repeat(3,1fr)}
-  .features{grid-template-columns:repeat(2,1fr)}
-  .footerGrid{grid-template-columns:1fr 1fr}
-}
-@media(max-width:650px){
-  .topbar span{display:inline-block;margin:2px 5px}
-  .headerMain{flex-wrap:wrap}
-  .logoBox{min-width:100%}
-  .headerActions{width:100%;justify-content:center}
-  .brand{font-size:20px}
-  .slide h1{font-size:32px}
-  .slide{min-height:300px;padding:35px 25px}
-  .slider{min-height:300px}
-  .categories{grid-template-columns:1fr}
-  .products{grid-template-columns:repeat(2,1fr)}
-  .productImg{height:210px}
-  .footerGrid{grid-template-columns:1fr}
-}
+/* PREMIUM ROYAL REDESIGN v2 */
+:root{--maroon:#5b070d;--dark:#250204;--gold:#d6a23a;--gold2:#f2cf75;--cream:#fff8ee;--ivory:#fffdf8;--text:#32100f}
+body{font-family:Georgia,'Times New Roman',serif;background:linear-gradient(#fffaf3,#fff6ea);color:var(--text)}
+.topbar{background:linear-gradient(90deg,#2a0204,#6b0a10,#2a0204);padding:8px 15px;border-bottom:1px solid #c79636;color:#ffe9a6;font-family:Georgia,serif;letter-spacing:.2px}
+.topbar span{margin:0 16px}.topbar .whatsappText{color:#fff;font-weight:800}
+header{background:linear-gradient(135deg,#350306,#720b12 55%,#3a0507);box-shadow:0 5px 22px #26000055;border-bottom:1px solid #d5a64c}
+.headerMain{max-width:1280px;padding:12px 18px}.logoBox{gap:14px}.logoBox img{width:74px;height:74px;border:2px solid #d6a23a;box-shadow:0 0 0 4px #4b090c}.brand{font-family:Georgia,serif;font-size:30px;color:#f6cf71;letter-spacing:.2px;text-shadow:0 2px 8px #000}.brand small{font-size:11px;color:#fff1c8;letter-spacing:2.4px;margin-top:5px}
+.headerActions{gap:9px}.headerBtn{border-color:#d7a94f88;background:#ffffff0d;color:#fff7de;padding:9px 14px}.cartBtn{background:linear-gradient(#efc55b,#c58b22);color:#2e0606}
+.nav{border-top:1px solid #e0b95c33}.navInner{justify-content:center;gap:7px;padding:8px 18px}.nav a{font-family:Georgia,serif;padding:9px 17px}.nav a:first-child{background:linear-gradient(#e9bf58,#b87a18);color:#310507;font-weight:800}
+.searchArea{max-width:1280px;margin:18px auto 10px}.searchBox{border:1px solid #c99b49;border-radius:4px;box-shadow:0 4px 20px #6b220f12}.searchBox input{font-family:Georgia,serif}.searchBox button{background:linear-gradient(#e7bc55,#bb7c1b);color:#2f0505}
+.hero{max-width:1280px;margin:10px auto 28px;padding:0 18px}.slider{min-height:470px;border-radius:0;border:1px solid #c99432;box-shadow:0 10px 35px #3b090933;background:#3b0809 url('/hero-model.jpg') right center/58% 100% no-repeat;position:relative}
+.slider:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#3a0508 0%,#5e0a10e8 38%,#5e0a1080 55%,transparent 78%);pointer-events:none}.slide{min-height:470px;padding:70px 8%;background:transparent;position:relative;z-index:2}.slideText{max-width:650px}.slide h1{font-family:Georgia,serif;font-size:64px;line-height:1.02;color:#f7d276;text-shadow:0 3px 12px #1b0000;margin-bottom:14px}.slide h1:before{content:'ROYAL';display:block;font-size:29px;letter-spacing:7px;color:#fff0c7;margin-bottom:8px;font-style:italic}.slide p{font-family:Georgia,serif;color:#fff5df;font-size:20px;max-width:560px}.heroBtn{background:linear-gradient(#f0c85d,#b87b1c);border:1px solid #ffe49a;color:#300507;border-radius:3px;padding:13px 28px;box-shadow:0 5px 14px #0004}.dots{z-index:3}.dot{background:#f6cf70}.dot.active{background:#fff;opacity:1}
+.sectionTitle h2{font-family:Georgia,serif;font-size:32px;letter-spacing:.4px}.sectionTitle h2:after{content:' ✦';color:#c89132;font-size:18px}.sectionTitle p{font-family:Georgia,serif}
+.categories{gap:22px}.category{min-height:220px;padding:28px;text-align:left;display:flex;justify-content:flex-end;align-items:flex-start;background:linear-gradient(90deg,#410507d9,#650a10aa),url('/category-poshak.jpg') center/cover;border:1px solid #d2a149;border-radius:4px;box-shadow:0 8px 25px #4a0b0c22;font-family:Georgia,serif;font-size:25px;text-shadow:0 2px 6px #000}.category:nth-child(2){background:linear-gradient(90deg,#410507d9,#650a10aa),url('/category-saree.jpg') center/cover}.category:after{content:'VIEW COLLECTION  →';display:block;margin-top:auto;font:700 12px Arial;letter-spacing:1.5px;background:#d7a33d;color:#2e0506;padding:10px 15px;position:absolute;bottom:22px;left:28px}.category{position:relative}
+.product{border:1px solid #dec89d;border-radius:4px;box-shadow:0 5px 20px #4b180e12}.product:hover{transform:translateY(-5px);box-shadow:0 12px 28px #4b180e22}.productImg{background:#f2e5d4}.productName{font-family:Georgia,serif}.price{color:#67070d}.btn{border-radius:3px}.buy{background:#67070d}.add{background:#d7a33d}
+.features{gap:0;border:1px solid #ddbd7d;background:#fff8ed;box-shadow:0 6px 20px #6b2a1210}.feature{border:0;border-right:1px solid #ddc99e;border-radius:0;background:transparent;padding:22px 10px;font-family:Georgia,serif}.feature:last-child{border-right:0}.featureIcon{color:#a56d1e}
+footer{background:radial-gradient(circle at 50% 0,#741016,#250204 70%);border-top:1px solid #d3a142}footer h3{font-family:Georgia,serif;color:#efc65d}.footerGrid{padding:48px 18px}.follow{font-family:Arial,sans-serif}.waIcon{background:#1fa855}
+@media(max-width:650px){.brand{font-size:21px}.logoBox img{width:60px;height:60px}.slider{min-height:410px;background-size:cover;background-position:65% center}.slider:after{background:linear-gradient(90deg,#3a0508f2,#5e0a10b8 60%,#3a050855)}.slide{min-height:410px;padding:50px 25px}.slide h1{font-size:42px}.slide h1:before{font-size:20px}.slide p{font-size:16px}.category{min-height:190px;font-size:20px}}
 </style>
 </head>
 
 <body>
 
 <div class="topbar">
-  <span>🚚 Shipping</span>
-  <span>🛒 Online Shopping</span>
-  <span>
-    <a class="whatsappText" href="https://wa.me/916261158338" target="_blank">
-      💬 WhatsApp: 6261158338
-    </a>
-  </span>
+  <span>🚚 Shipping All Over India</span>
+  <span>🛍️ Online Shopping</span>
+  <span><a class="whatsappText" href="https://wa.me/916261158338" target="_blank">💬 WhatsApp: 6261158338</a></span>
 </div>
-
 <header>
   <div class="headerMain">
     <div class="logoBox">
       <img src="/logo.png" alt="Shree Bala Ji Collection Logo">
-      <div class="brand">
-        Shree Bala Ji Collection
-        <small>RAJPUTI POSHAK & DESIGNER SAREES</small>
-      </div>
+      <div class="brand">Shree Bala Ji Collection<small>RAJPUTI POSHAK & DESIGNER SAREES</small></div>
     </div>
-
+    <div class="searchBox">
+      <input id="search" placeholder="Search Product..." oninput="renderAll()">
+      <button onclick="renderAll()">⌕</button>
+    </div>
     <div class="headerActions">
-      <button class="headerBtn" onclick="openLogin()">Login</button>
-      <button class="headerBtn" onclick="openSignup()">Sign Up</button>
+      <button class="headerBtn" onclick="openLogin()">Login / Sign Up</button>
       <button class="headerBtn cartBtn" onclick="openCart()">🛒 Cart <span id="cartCount">0</span></button>
-      <a class="headerBtn" href="https://wa.me/916261158338" target="_blank">💬 WhatsApp</a>
+      <a class="headerBtn waBtn" href="https://wa.me/916261158338" target="_blank">💬 WhatsApp</a>
     </div>
   </div>
-
-  <nav class="nav">
-    <div class="navInner">
-      <a href="#home">Home</a>
-      <a href="#rajputi">Rajputi Suits</a>
-      <a href="#sarees">Designer Sarees</a>
-      <a href="#newArrival">New Arrival</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </nav>
+  <nav class="nav"><div class="navInner">
+    <a href="#home">Home</a><a href="#rajputi">Rajputi Suits</a><a href="#sarees">Designer Sarees</a><a href="#newArrival">New Arrival</a><a href="#products">Best Seller</a><a href="#contact">Contact</a>
+  </div></nav>
 </header>
-
-<div class="searchArea">
-  <div class="searchBox">
-    <input id="search" placeholder="Search Product..." oninput="renderAll()">
-    <button onclick="renderAll()">Search</button>
-  </div>
-</div>
-
 <main id="home">
 
 <section class="hero">
   <div class="slider">
     <div class="slide active">
       <div class="slideText">
-        <h1>Shree Bala Ji Collection</h1>
-        <p>Premium Rajputi Poshak and Designer Sarees for every special occasion.</p>
-        <a class="heroBtn" href="#products">Shop Now</a>
+        <h1>Rajputi Poshak</h1>
+        <p>Tradition in Every Drape — discover regal Rajputi designs crafted for weddings, festivals and every special occasion.</p>
+        <a class="heroBtn" href="#rajputi">Shop Now&nbsp; →</a>
       </div>
     </div>
-
-    <div class="slide">
-      <div class="slideText">
-        <h1>Royal Rajputi Collection</h1>
-        <p>Discover beautiful traditional styles with premium quality and elegant designs.</p>
-        <a class="heroBtn" href="#rajputi">Explore Collection</a>
-      </div>
-    </div>
-
     <div class="slide">
       <div class="slideText">
         <h1>Designer Sarees</h1>
-        <p>Elegant sarees for daily wear, festivals, functions and special occasions.</p>
-        <a class="heroBtn" href="#sarees">View Sarees</a>
+        <p>Elegant festive and designer sarees with a rich traditional touch. Grace, style and timeless beauty.</p>
+        <a class="heroBtn" href="#sarees">Explore Sarees&nbsp; →</a>
       </div>
     </div>
-
-    <div class="dots">
-      <span class="dot active"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
+    <div class="slide">
+      <div class="slideText">
+        <h1>New Collection</h1>
+        <p>Premium ethnic fashion from Shree Bala Ji Collection — selected for your most memorable occasions.</p>
+        <a class="heroBtn" href="#newArrival">View New Arrival&nbsp; →</a>
+      </div>
     </div>
+    <div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
   </div>
 </section>
 
@@ -602,10 +133,10 @@ footer a{
 
   <div class="categories">
     <a class="category" href="#rajputi" onclick="setCategory('Rajputi Suits')">
-      ALL DESIGNER RAJPUTI POSHAK
+      ALL DESIGNER RAJPUTI POSHAK<br><span>SHOP COLLECTION →</span>
     </a>
     <a class="category" href="#sarees" onclick="setCategory('Sarees')">
-      ALL FANCY SAREES
+      ALL FANCY SAREES<br><span>SHOP COLLECTION →</span>
     </a>
   </div>
 </section>
